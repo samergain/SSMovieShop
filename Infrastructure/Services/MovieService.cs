@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
+using Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,22 @@ namespace Infrastructure.Services
     {
         public List<MovieCardModel> GetTop30GrossingMovies()
         {
-            throw new NotImplementedException();
+            // this method should call the movieRepository which in turn will get the data from the db
+            // get the entity class data then map the entity to model class
+            var movieRepo = new MovieRepository();
+            var movies = movieRepo.GetTop30GrossingMovies();
+            var movieCards = new List<MovieCardModel>();
+            foreach(var movie in movies)
+            {
+                movieCards.Add(new MovieCardModel
+                {
+                    Title = movie.Title,
+                    Id = movie.Id,
+                    PosterUrl = movie.PosterUrl
+                });
+            }
+            return movieCards;
+           
         }
 
     }

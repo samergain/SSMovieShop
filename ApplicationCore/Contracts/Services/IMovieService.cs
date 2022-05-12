@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace ApplicationCore.Contracts.Services
 {
     public interface IMovieService
     {
-
+        // to be called by home/index action method
+        List<MovieCardModel> GetTop30GrossingMovies();
     }
 }

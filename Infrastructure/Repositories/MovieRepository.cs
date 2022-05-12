@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Contracts.Services;
+﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
 using ApplicationCore.Entities;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace Infrastructure.Repositories
             //ADO.NET (Microsoft) SQLConnection, SQLCommand
             //Dapper 
             // Entity Framework Core => LINQ
-            return null;
+            // select top(30) * from movie order by Revenue
+            throw new NotImplementedException();
         }
     }
 }
