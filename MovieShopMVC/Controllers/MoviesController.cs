@@ -4,7 +4,7 @@ namespace MovieShopMVC.Controllers
 {
     public class MoviesController : Controller
     {
-        public IActionResult Details(int id)
+        public IActionResult MovieDetails(int id)
         {
             //go to movies table and get the movie details by ID
             //connect to SQL server and execute the SQL query
