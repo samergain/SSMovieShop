@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Contracts.Services;
+﻿using ApplicationCore.Contracts.Repositories;
+using ApplicationCore.Contracts.Services;
 using ApplicationCore.Models;
 using Infrastructure.Repositories;
 using System;
@@ -11,12 +12,19 @@ namespace Infrastructure.Services
 {
     public class MovieService : IMovieService
     {
+        private readonly IMovieRepository _movieRepository;
+
+        public MovieService(IMovieRepository movieRepository)
+        {
+            _movieRepository = movieRepository;
+        }
         public List<MovieCardModel> GetTop30GrossingMovies()
         {
             // this method should call the movieRepository which in turn will get the data from the db
             // get the entity class data then map the entity to model class
-            var movieRepo = new MovieRepository();
-            var movies = movieRepo.GetTop30GrossingMovies();
+            //var movieRepo = new MovieRepository();
+
+            var movies = _movieRepository.GetTop30GrossingMovies();
             var movieCards = new List<MovieCardModel>();
             foreach(var movie in movies)
             {
