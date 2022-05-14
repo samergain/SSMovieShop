@@ -19,6 +19,9 @@ namespace Infrastructure.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Trailer> Trailer { get; set; }
         public DbSet<MovieGenre> MovieGenre { get; set; }
+        public DbSet<Crew> Crew { get; set; }
+        public DbSet<MovieCrew> MovieCrew { get; set; }
+
         
         
         // to use Fluent API you need to override "OnModelCreating" method and give it the custom table modeling properties
@@ -27,7 +30,8 @@ namespace Infrastructure.Data
             //here we specify the rules for Entity
             modelBuilder.Entity<Genre>(ConfigureGenre);
             modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
-
+            modelBuilder.Entity<MovieCrew>(ConfigureMovieCrew);
+            modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
         }
 
         private void ConfigureGenre(EntityTypeBuilder<Genre> builder)
@@ -41,6 +45,15 @@ namespace Infrastructure.Data
         private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
         {
             builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
+        }
+        private void ConfigureMovieCrew(EntityTypeBuilder<MovieCrew> builder)
+        {
+            builder.HasKey(mc => new { mc.MovieId, mc.CrewId });
+        }
+
+        private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder)
+        {
+            builder.HasKey(mc => new { mc.MovieId, mc.CastId });
         }
     }
 }
