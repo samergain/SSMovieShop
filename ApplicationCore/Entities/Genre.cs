@@ -10,5 +10,8 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        //Navigation property
+        ICollection<MovieGenre> GenresOfMovies { get; set; }
     }
 }

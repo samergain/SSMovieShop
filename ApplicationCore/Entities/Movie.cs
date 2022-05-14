@@ -49,5 +49,8 @@ namespace ApplicationCore.Entities
 
         [MaxLength(4096)]
         public string? CreatedBy { get; set; }
+
+        ICollection<Trailer> Trailers { get; set; }
+        ICollection<MovieGenre> MoviesOfGenre { get; set; }
     }
 }
