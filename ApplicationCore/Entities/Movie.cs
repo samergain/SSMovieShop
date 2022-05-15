@@ -54,6 +54,7 @@ namespace ApplicationCore.Entities
         ICollection<MovieGenre> MoviesOfGenre { get; set; }
         ICollection<MovieCrew> MovieCrews { get; set; }
         ICollection<MovieCast> MovieCasts { get; set; }
+        ICollection<Review> MovieReviews { get; set; }
 
     }
 }

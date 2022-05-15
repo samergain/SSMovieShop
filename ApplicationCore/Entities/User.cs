@@ -30,5 +30,6 @@ namespace ApplicationCore.Entities
         public int AccessFailedCount { get; set; }
 
         ICollection<UserRole> UserRoles { get; set; }
+        ICollection<Review> UserReviews { get; set; }
     }
 }
