@@ -21,9 +21,14 @@ namespace Infrastructure.Data
         public DbSet<MovieGenre> MovieGenre { get; set; }
         public DbSet<Crew> Crew { get; set; }
         public DbSet<MovieCrew> MovieCrew { get; set; }
+        public DbSet<Cast> Cast { get; set; }
+        public DbSet<MovieCast> MovieCast { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
 
-        
-        
+
+
         // to use Fluent API you need to override "OnModelCreating" method and give it the custom table modeling properties
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,6 +37,7 @@ namespace Infrastructure.Data
             modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
             modelBuilder.Entity<MovieCrew>(ConfigureMovieCrew);
             modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
+            modelBuilder.Entity<UserRole>(ConfigureUserRole);
         }
 
         private void ConfigureGenre(EntityTypeBuilder<Genre> builder)
@@ -54,6 +60,10 @@ namespace Infrastructure.Data
         private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder)
         {
             builder.HasKey(mc => new { mc.MovieId, mc.CastId });
+        }
+        private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+        {
+            builder.HasKey(ur => new {ur.RoleId, ur.UserId});
         }
     }
 }
