@@ -27,6 +27,8 @@ namespace Infrastructure.Data
         public DbSet<Role> Role { get; set; }
         public DbSet<UserRole> UserRole { get; set; }
         public DbSet<Review> Review { get; set; }
+        public DbSet<Favorite> Favorite { get; set; }
+
 
 
 
@@ -40,6 +42,7 @@ namespace Infrastructure.Data
             modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
             modelBuilder.Entity<UserRole>(ConfigureUserRole);
             modelBuilder.Entity<Review>(ConfigureReview);
+            
             
            
         }
@@ -74,5 +77,6 @@ namespace Infrastructure.Data
             builder.HasKey(mu => new {mu.MovieId, mu.UserId});
             builder.Property(x => x.Rating).HasPrecision(3, 2);
         }
+        
     }
 }

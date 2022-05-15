@@ -31,5 +31,6 @@ namespace ApplicationCore.Entities
 
         ICollection<UserRole> UserRoles { get; set; }
         ICollection<Review> UserReviews { get; set; }
+        ICollection<Favorite> UserFavorites { get; set; }
     }
 }
