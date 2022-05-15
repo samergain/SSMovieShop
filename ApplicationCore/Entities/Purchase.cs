@@ -17,7 +17,5 @@ namespace ApplicationCore.Entities
         public Movie Movie { get; set; }
         public User User { get; set; }
 
-        
-
     }
 }

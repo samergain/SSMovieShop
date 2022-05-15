@@ -11,7 +11,7 @@ namespace ApplicationCore.Entities
     {
         public int Id { get; set; }
         [MaxLength(256)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [MaxLength(256)]
         public string? Gender { get; set; }
         [MaxLength(2084)]
