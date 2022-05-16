@@ -80,8 +80,10 @@ namespace Infrastructure.Data
         }
         private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
         {
-            builder.HasAlternateKey(p => p.PurchaseNumber);
+
+            builder.ToTable("Purchase");
             builder.Property(p => p.TotalPrice).HasPrecision(18, 2);
+            builder.HasIndex(p=> new  { p.UserId, p.MovieId});
             
         }
 

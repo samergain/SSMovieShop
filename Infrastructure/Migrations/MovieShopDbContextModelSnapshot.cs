@@ -268,8 +268,8 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("PurchaseDateTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PurchaseNumber")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PurchaseNumber")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("TotalPrice")
                         .HasPrecision(18, 2)
@@ -280,13 +280,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("PurchaseNumber");
-
                     b.HasIndex("MovieId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId", "MovieId");
 
-                    b.ToTable("Purchase");
+                    b.ToTable("Purchase", (string)null);
                 });
 
             modelBuilder.Entity("ApplicationCore.Entities.Review", b =>
