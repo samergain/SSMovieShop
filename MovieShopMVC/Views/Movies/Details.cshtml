@@ -38,22 +38,32 @@
         <div class="col-4">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><h2>Movie Facts</h2></li>
-              <li class="list-group-item">Release Date <span><button type="button" class="btn btn-secondary btn-sm">@Model.ReleaseDate</button></span></li>
-              <li class="list-group-item">Run Time  <span><button type="button" class="btn btn-secondary btn-sm">@Model.RunTime</button></span></li>
-              <li class="list-group-item">Box Office  <span><button type="button" class="btn btn-secondary btn-sm">@Model.Revenue</button></span></li>
-              <li class="list-group-item">Budget  <span><button type="button" class="btn btn-secondary btn-sm">@Model.Budget</button></span></li>
+              <li class="list-group-item">Release Date <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.ReleaseDate.Value.Year</button></span></li>
+              <li class="list-group-item">Run Time  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.RunTime</button></span></li>
+              <li class="list-group-item">Box Office  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Revenue</button></span></li>
+              <li class="list-group-item">Budget  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Budget</button></span></li>
               <li class="list-group-item"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>
-              <li class="list-group-item"><h2>Trailers:</h2></li>
-              <li class="list-group-item">trailer1 </li>
+              <li class="list-group-item"><h2>Trailers:</h2>
+                <ul class="list-group">
+                @foreach(var t in Model.Trailers)
+                        {
+                            <li class="list-group-item"><a href="@t.TrailerUrl" target="_blank">@t.Name</a></li>
+                        }
+                
+                </ul>
+              </li>
             </ul>
         </div>
         <div class="col-8">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><h2>Cast</h2></li>
-              <li class="list-group-item">fName lName</li>
-              <li class="list-group-item">fName lName</li>
-              <li class="list-group-item">fName lName</li>
-              <li class="list-group-item">fName lName</li>
+              <ul class="list-group list-group-flush">
+                @foreach(var t in Model.Casts)
+                        {
+                            <li class="list-group-item"><img class="rounded-circle" src="@t.ProfilePath" style="height:70px;"/>&nbsp;&nbsp; @t.Name</li>
+                        }
+                
+                </ul>
             </ul>
         </div>
     </div>

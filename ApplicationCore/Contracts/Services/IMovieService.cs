@@ -11,6 +11,6 @@ namespace ApplicationCore.Contracts.Services
     {
         // to be called by home/index action method
         List<MovieCardModel> GetTop30GrossingMovies();
-        MovieDetailsModel GetById(int id);
+        MovieDetailsModel GetMovieDetails(int id);
     }
 }

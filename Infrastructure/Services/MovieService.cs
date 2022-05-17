@@ -39,26 +39,54 @@ namespace Infrastructure.Services
            
         }
 
-        public MovieDetailsModel GetById(int id)
+        public MovieDetailsModel GetMovieDetails(int id)
         {
             var movie = _movieRepository.GetById(id);
-            var movieDetails = new MovieDetailsModel();
-            movieDetails.Id = id;
-            movieDetails.Title = movie.Title;
-            movieDetails.PosterUrl = movie.PosterUrl;
-            movieDetails.BackdropUrl = movie.BackdropUrl;
-            movieDetails.Overview = movie.Overview;
-            movieDetails.Tagline = movie.Tagline;
-            movieDetails.Budget = movie.Budget;
-            movieDetails.Revenue = movie.Revenue;
-            movieDetails.ImdbUrl = movie.ImdbUrl;
-            movieDetails.TmdbUrl = movie.TmdbUrl;
-            movieDetails.ReleaseDate = movie.ReleaseDate;
-            movieDetails.RunTime = movie.RunTime;
-            movieDetails.Price = movie.Price;
-            //movieDetails.Genres = movie.MoviesOfGenre.ToArray();
-            //movieDetails.Trailers = movie.Trailers.ToArray();
-            //movieDetails.Casts = movie.MovieCasts.ToArray();
+
+            var movieDetails = new MovieDetailsModel {
+                Id = movie.Id,
+                Title = movie.Title,
+                Budget = movie.Budget,
+                Overview = movie.Overview,
+                PosterUrl= movie.PosterUrl,
+                BackdropUrl= movie.BackdropUrl,
+                Price = movie.Price,
+                Revenue = movie.Revenue,
+                ReleaseDate = movie.ReleaseDate,
+                Tagline = movie.Tagline,
+                RunTime = movie.RunTime,
+                ImdbUrl = movie.ImdbUrl,
+                TmdbUrl = movie.TmdbUrl
+                };
+            
+            foreach(var genre in movie.MoviesOfGenre)
+            {
+                movieDetails.Genres.Add(new GenreModel
+                {
+                    Id = genre.GenreId,
+                    Name = genre.Genre.Name
+                });
+            }
+            foreach(var cast in movie.MovieCasts)
+            {
+                movieDetails.Casts.Add(new CastModel
+                {
+                    Id = cast.CastId,
+                    Name = cast.Cast.Name,
+                    ProfilePath = cast.Cast.ProfilePath,
+                    Character = cast.Cast.TmdbUrl
+
+                });
+            }
+            foreach(var trailer in movie.Trailers)
+            {
+                movieDetails.Trailers.Add(new TrailerModel
+                {
+                    Id = trailer.Id,
+                    Name = trailer.Name,
+                    TrailerUrl = trailer.TrailerUrl
+                });
+            }
 
             return movieDetails;
         }

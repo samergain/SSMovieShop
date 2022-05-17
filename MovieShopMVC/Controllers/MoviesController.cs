@@ -24,7 +24,7 @@ namespace MovieShopMVC.Controllers
             // Services for Business Logic
             // Controllers action methods => Services methods => Repository methods => SQL db
             // get the model data from the services and send the data to the views (M = Model)
-            var movie = _movieService.GetById(id);
+            var movie = _movieService.GetMovieDetails(id);
             return View(movie);
         }
     }
