@@ -1,9 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApplicationCore.Contracts.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly ILogger<MoviesController> _logger;
+        private readonly IMovieService _movieService;
+
+        public MoviesController(ILogger<MoviesController> logger, IMovieService movieService)
+        {
+            _logger = logger;
+            _movieService = movieService;
+        }
+
         public IActionResult Details(int id)
         {
             //go to movies table and get the movie details by ID
@@ -14,7 +24,8 @@ namespace MovieShopMVC.Controllers
             // Services for Business Logic
             // Controllers action methods => Services methods => Repository methods => SQL db
             // get the model data from the services and send the data to the views (M = Model)
-            return View();
+            var movie = _movieService.GetById(id);
+            return View(movie);
         }
     }
 }

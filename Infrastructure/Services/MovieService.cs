@@ -39,5 +39,29 @@ namespace Infrastructure.Services
            
         }
 
+        public MovieDetailsModel GetById(int id)
+        {
+            var movie = _movieRepository.GetById(id);
+            var movieDetails = new MovieDetailsModel();
+            movieDetails.Id = id;
+            movieDetails.Title = movie.Title;
+            movieDetails.PosterUrl = movie.PosterUrl;
+            movieDetails.BackdropUrl = movie.BackdropUrl;
+            movieDetails.Overview = movie.Overview;
+            movieDetails.Tagline = movie.Tagline;
+            movieDetails.Budget = movie.Budget;
+            movieDetails.Revenue = movie.Revenue;
+            movieDetails.ImdbUrl = movie.ImdbUrl;
+            movieDetails.TmdbUrl = movie.TmdbUrl;
+            movieDetails.ReleaseDate = movie.ReleaseDate;
+            movieDetails.RunTime = movie.RunTime;
+            movieDetails.Price = movie.Price;
+            //movieDetails.Genres = movie.MoviesOfGenre.ToArray();
+            //movieDetails.Trailers = movie.Trailers.ToArray();
+            //movieDetails.Casts = movie.MovieCasts.ToArray();
+
+            return movieDetails;
+        }
+
     }
 }

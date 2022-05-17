@@ -1,0 +1,34 @@
+﻿@model ApplicationCore.Models.MovieDetailsModel
+@using ApplicationCore.Models;
+@{
+    var movieCard = new MovieCardModel();
+    movieCard.Id = @Model.Id;
+    movieCard.PosterUrl = @Model.PosterUrl;
+    movieCard.Title = @Model.Title;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-5 border-0">
+            <div class="card border-0" style="width: 80%;">
+            <partial name="_MovieCardPartial" model="movieCard" />
+            </div>
+        </div>
+
+        <div class="col-5">
+            <div class="card border-0" style="width: 80%;">
+              <div class="card-body">
+                <h5 class="card-title">@Model.Title</h5>
+                <p class=" fs-6 mb-2 text-muted">@Model.Tagline</p>
+                <p class="card-subtitle fs-6 mb-2 text-muted">@Model.RunTime | @Model.ReleaseDate.Value.Year</p>
+                <p class="card-text">@Model.Overview</p>
+              </div>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-8"></div>
+    </div>
+</div>
