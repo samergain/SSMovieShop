@@ -8,7 +8,7 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row bg-image" style="background-image: url(@Model.BackdropUrl);">
         <div class="col-5 border-0">
             <div class="card border-0" style="width: 80%;">
             <partial name="_MovieCardPartial" model="movieCard" />
@@ -16,19 +16,45 @@
         </div>
 
         <div class="col-5">
-            <div class="card border-0" style="width: 80%;">
+            <div class="card border-0" style="width: 80%;  --bs-bg-opacity: 1;">
               <div class="card-body">
                 <h5 class="card-title">@Model.Title</h5>
-                <p class=" fs-6 mb-2 text-muted">@Model.Tagline</p>
+                <p class=" fs-6 mb-2 text-muted">@Model.Tagline @Model.Price</p>
                 <p class="card-subtitle fs-6 mb-2 text-muted">@Model.RunTime | @Model.ReleaseDate.Value.Year</p>
+                <h4><span class="badge bg-success">9.0</span></h4>
                 <p class="card-text">@Model.Overview</p>
               </div>
             </div>
         </div>
-        <div class="col-2"></div>
+        <div class="col-2">
+            <div class="d-grid gap-2 mt-5">
+              <button class="btn btn-light" type="button">Review</button>
+              <button class="btn btn-dark" type="button">Buy @Model.Price</button>
+            </div>
+        </div>
     </div>
+
     <div class="row">
-        <div class="col-4"></div>
-        <div class="col-8"></div>
+        <div class="col-4">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><h2>Movie Facts</h2></li>
+              <li class="list-group-item">Release Date <span><button type="button" class="btn btn-secondary btn-sm">@Model.ReleaseDate</button></span></li>
+              <li class="list-group-item">Run Time  <span><button type="button" class="btn btn-secondary btn-sm">@Model.RunTime</button></span></li>
+              <li class="list-group-item">Box Office  <span><button type="button" class="btn btn-secondary btn-sm">@Model.Revenue</button></span></li>
+              <li class="list-group-item">Budget  <span><button type="button" class="btn btn-secondary btn-sm">@Model.Budget</button></span></li>
+              <li class="list-group-item"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>
+              <li class="list-group-item"><h2>Trailers:</h2></li>
+              <li class="list-group-item">trailer1 </li>
+            </ul>
+        </div>
+        <div class="col-8">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><h2>Cast</h2></li>
+              <li class="list-group-item">fName lName</li>
+              <li class="list-group-item">fName lName</li>
+              <li class="list-group-item">fName lName</li>
+              <li class="list-group-item">fName lName</li>
+            </ul>
+        </div>
     </div>
 </div>
