@@ -50,13 +50,13 @@ namespace ApplicationCore.Entities
         [MaxLength(4096)]
         public string? CreatedBy { get; set; }
 
-        ICollection<Trailer> Trailers { get; set; }
-        ICollection<MovieGenre> MoviesOfGenre { get; set; }
-        ICollection<MovieCrew> MovieCrews { get; set; }
-        ICollection<MovieCast> MovieCasts { get; set; }
-        ICollection<Review> MovieReviews { get; set; }
-        ICollection<Favorite> MovieFavorites { get; set; }
-        ICollection<Purchase> MoviePurchases { get; set; }
+        public ICollection<Trailer> Trailers { get; set; }
+        public ICollection<MovieGenre> MoviesOfGenre { get; set; }
+        public ICollection<MovieCrew> MovieCrews { get; set; }
+        public ICollection<MovieCast> MovieCasts { get; set; }
+        public ICollection<Review> MovieReviews { get; set; }
+        public ICollection<Favorite> MovieFavorites { get; set; }
+        public ICollection<Purchase> MoviePurchases { get; set; }
 
 
     }

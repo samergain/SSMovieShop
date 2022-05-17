@@ -44,8 +44,7 @@ namespace Infrastructure.Data
             modelBuilder.Entity<UserRole>(ConfigureUserRole);
             modelBuilder.Entity<Review>(ConfigureReview);
             modelBuilder.Entity<Purchase>(ConfigurePurchase);
-            
-           
+             
         }
 
         private void ConfigureGenre(EntityTypeBuilder<Genre> builder)
