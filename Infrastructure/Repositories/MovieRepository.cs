@@ -17,21 +17,21 @@ namespace Infrastructure.Repositories
         {
 
         }
-        public List<Movie> GetTop30GrossingMovies()
+        public async Task<List<Movie>> GetTop30GrossingMovies()
         {
             
-            var movies = _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToList();
+            var movies = await _dbContext.Movies.OrderByDescending(x => x.Revenue).Take(30).ToListAsync();
             return movies;
         }
 
-        public override Movie GetById(int id)
+        public override async Task<Movie> GetById(int id)
         {
             // we need to join Navigation properties
             // Include method in EF will enable us to join with related navigation proerties
-            var movie = _dbContext.Movies.Include(m => m.MoviesOfGenre).ThenInclude(m => m.Genre)
+            var movie = await _dbContext.Movies.Include(m => m.MoviesOfGenre).ThenInclude(m => m.Genre)
                 .Include(m => m.MovieCasts).ThenInclude(m => m.Cast)
                 .Include(m => m.Trailers)
-                .FirstOrDefault(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             // FirstOrDefault safest one
             // First throws ex when 0 records
             // SingleOrDefault good for 0 or 1

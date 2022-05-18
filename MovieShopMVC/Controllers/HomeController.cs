@@ -15,10 +15,10 @@ namespace MovieShopMVC.Controllers
             _logger = logger;
             _movieService = movieService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //var movieService = new MovieService();
-            var movieCards = _movieService.GetTop30GrossingMovies();
+            var movieCards = await _movieService.GetTop30GrossingMovies();
             return View(movieCards);
         }
 

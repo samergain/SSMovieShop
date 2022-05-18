@@ -18,13 +18,13 @@ namespace Infrastructure.Services
         {
             _movieRepository = movieRepository;
         }
-        public List<MovieCardModel> GetTop30GrossingMovies()
+        public async Task<List<MovieCardModel>> GetTop30GrossingMovies()
         {
             // this method should call the movieRepository which in turn will get the data from the db
             // get the entity class data then map the entity to model class
             //var movieRepo = new MovieRepository();
 
-            var movies = _movieRepository.GetTop30GrossingMovies();
+            var movies = await _movieRepository.GetTop30GrossingMovies();
             var movieCards = new List<MovieCardModel>();
             foreach(var movie in movies)
             {
@@ -39,9 +39,9 @@ namespace Infrastructure.Services
            
         }
 
-        public MovieDetailsModel GetMovieDetails(int id)
+        public async Task<MovieDetailsModel> GetMovieDetails(int id)
         {
-            var movie = _movieRepository.GetById(id);
+            var movie = await _movieRepository.GetById(id);
 
             var movieDetails = new MovieDetailsModel {
                 Id = movie.Id,

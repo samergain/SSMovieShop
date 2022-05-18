@@ -10,7 +10,7 @@ namespace ApplicationCore.Contracts.Services
     public interface IMovieService
     {
         // to be called by home/index action method
-        List<MovieCardModel> GetTop30GrossingMovies();
-        MovieDetailsModel GetMovieDetails(int id);
+        Task<List<MovieCardModel>> GetTop30GrossingMovies();
+        Task<MovieDetailsModel> GetMovieDetails(int id);
     }
 }

@@ -14,7 +14,7 @@ namespace MovieShopMVC.Controllers
             _movieService = movieService;
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             //go to movies table and get the movie details by ID
             //connect to SQL server and execute the SQL query
@@ -24,7 +24,7 @@ namespace MovieShopMVC.Controllers
             // Services for Business Logic
             // Controllers action methods => Services methods => Repository methods => SQL db
             // get the model data from the services and send the data to the views (M = Model)
-            var movie = _movieService.GetMovieDetails(id);
+            var movie = await _movieService.GetMovieDetails(id);
             return View(movie);
         }
     }

@@ -15,10 +15,10 @@ namespace Infrastructure.Repositories
         public CastRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
         }
-        public override Cast GetById(int id)
+        public override async Task<Cast> GetById(int id)
         {
 
-            var cast = _dbContext.Cast.Include(c => c.CastMovies).ThenInclude(c => c.Movie).FirstOrDefault(c => c.Id == id);
+            var cast = await _dbContext.Cast.Include(c => c.CastMovies).ThenInclude(c => c.Movie).FirstOrDefaultAsync(c => c.Id == id);
             return cast;
         }
     }
