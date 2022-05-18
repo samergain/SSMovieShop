@@ -1,0 +1,17 @@
+﻿@* if user is authenticated
+show First Name + Last Name
+dropdown for links 
+1. Movies (Purchased) -> user/purchases
+2. Favorites -> user/favorites
+3. Account info -> user/edit
+4. Logout -> logout and redirect to login page
+
+else 
+show links
+Register -> account/register
+Login -> account/login *@
+
+<div class="text-end">
+    <a class="btn btn-outline-dark me-2" asp-controller="Account" asp-action="Login"> Login </a>
+    <a class="btn btn-outline-dark me-2" asp-controller="Account" asp-action="Register"> Register </a>
+</div>
