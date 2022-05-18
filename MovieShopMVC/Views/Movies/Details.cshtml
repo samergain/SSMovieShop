@@ -9,20 +9,21 @@
 
 <div class="container-fluid">
     <div class="row bg-image" style="background-image: url(@Model.BackdropUrl);">
+        <div class="row bg-image" style="background-color: rgba(0, 0, 0, 0.7);">
         <div class="col-5 border-0">
-            <div class="card border-0" style="width: 80%;">
+            <div class="card border-0" style="width: 80%; background-color: rgba(0, 0, 0, 0);">
             <partial name="_MovieCardPartial" model="movieCard" />
             </div>
         </div>
 
-        <div class="col-5">
-            <div class="card border-0" style="width: 80%;  --bs-bg-opacity: 1;">
+        <div class="col-5" style="background-color: rgba(0, 0, 0, 0);">
+            <div class="card border-0" style="background-color: rgba(0, 0, 0, 0);">
               <div class="card-body">
-                <h5 class="card-title">@Model.Title</h5>
+                <h5 class="card-title" style="color: white;">@Model.Title</h5>
                 <p class=" fs-6 mb-2 text-muted">@Model.Tagline @Model.Price</p>
                 <p class="card-subtitle fs-6 mb-2 text-muted">@Model.RunTime | @Model.ReleaseDate.Value.Year</p>
                 <h4><span class="badge bg-success">9.0</span></h4>
-                <p class="card-text">@Model.Overview</p>
+                <p class="card-text" style="color: white;">@Model.Overview</p>
               </div>
             </div>
         </div>
@@ -33,21 +34,21 @@
             </div>
         </div>
     </div>
-
+    </div>
     <div class="row">
         <div class="col-4">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item"><h2>Movie Facts</h2></li>
-              <li class="list-group-item">Release Date <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.ReleaseDate.Value.Year</button></span></li>
-              <li class="list-group-item">Run Time  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.RunTime</button></span></li>
-              <li class="list-group-item">Box Office  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Revenue</button></span></li>
-              <li class="list-group-item">Budget  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Budget</button></span></li>
-              <li class="list-group-item"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>
-              <li class="list-group-item"><h2>Trailers:</h2>
+            <ul class="list-group list-group-flush" style="background-color: lightgray;">
+              <li class="list-group-item" style="background-color: lightgray;"><h2>Movie Facts</h2></li>
+              <li class="list-group-item" style="background-color: lightgray;">Release Date <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.ReleaseDate.Value.Year</button></span></li>
+              <li class="list-group-item" style="background-color: lightgray;">Run Time  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.RunTime</button></span></li>
+              <li class="list-group-item" style="background-color: lightgray;">Box Office  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Revenue</button></span></li>
+              <li class="list-group-item" style="background-color: lightgray;">Budget  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Budget</button></span></li>
+              <li class="list-group-item" style="background-color: lightgray;"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>
+              <li class="list-group-item" style="background-color: lightgray;"><h2>Trailers:</h2>
                 <ul class="list-group">
                 @foreach(var t in Model.Trailers)
                         {
-                            <li class="list-group-item"><a href="@t.TrailerUrl" target="_blank">@t.Name</a></li>
+                            <li class="list-group-item" style="background-color: lightgray;"><a href="@t.TrailerUrl" target="_blank">@t.Name</a></li>
                         }
                 
                 </ul>
