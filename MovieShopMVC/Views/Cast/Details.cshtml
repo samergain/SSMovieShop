@@ -1,0 +1,10 @@
+﻿@model ApplicationCore.Models.CastDetailsModel
+
+<h1>@Model.Name</h1>
+<h3>@Model.ProfilePath</h3>
+<h3>@Model.TmdbUrl</h3>
+<ul>
+    @foreach(var m in Model.Movies){
+        <li><a asp-controller="Movies" asp-action="Details" asp-route-id="@m.Id">@m.Title</a></li>
+    }
+</ul>
