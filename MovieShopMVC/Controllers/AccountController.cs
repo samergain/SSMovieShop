@@ -1,10 +1,19 @@
-﻿using ApplicationCore.Models;
+﻿using ApplicationCore.Contracts.Services;
+using ApplicationCore.Exceptions;
+using ApplicationCore.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MovieShopMVC.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IAccountService _accountService;
+
+        public AccountController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -13,19 +22,27 @@ namespace MovieShopMVC.Controllers
 
         
         [HttpPost]
-        public IActionResult Register(UserRegisterModel model)
+        public async Task<IActionResult> Register(UserRegisterModel model)
         {
             //save received data in user table
             //passwords should always be hashed with Salt(salt is a unique randomly created string)
-            // the Salt value should be stored in db. for login authentication we
-            //      1- get the salt from db
-            //      2- hash the salt
-            //      3- hash the entered password and add the  hashed salt to it
-            //      4- compare the hashed password stored in db to the entered password after hashing and adding salt
+            // the Salt value should be stored in db. 
 
             // what's the difference between encryption and hashing?
             // encryption is two way encrypt and decrypt  vs.  hashing is one-way (we can't get the original value)
-            return View();
+            try
+            {
+                var user = await _accountService.RegisterUser(model);
+            } 
+            catch (ConflictException)
+            {
+                throw;
+                //todo: logging exception
+            }
+
+            
+            return RedirectToAction("Login");
+            
         }
 
         [HttpGet]
@@ -34,8 +51,22 @@ namespace MovieShopMVC.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Login(UserLoginModel model)
+        public async Task<IActionResult> Login(UserLoginModel model)
         {
+            try
+            {
+                var user = await _accountService.LoginUser(model.Email, model.Password);
+                if(user != null)
+                {
+                    //redirect to homepage
+                    return LocalRedirect("~/");
+                }
+            }
+            catch
+            {
+                return View();
+                throw;
+            }
             return View();
         }
       

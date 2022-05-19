@@ -22,9 +22,32 @@ namespace Infrastructure.Services
             _userRepositroy = userRepositroy;
         }
 
-        public Task<UserLoginResponseModel> LoginUser(string email, string password)
+        public async Task<UserLoginResponseModel> LoginUser(string email, string password)
         {
-            throw new NotImplementedException();
+            var dbUser = await _userRepositroy.GetUserByEmail(email);
+            if (dbUser == null)
+            {
+                throw new Exception("Email does not exist");
+            }
+            //for login authentication we
+            //      1- get the salt from db
+            //      2- hash the salt
+            //      3- hash the entered password and add the hashed salt to it
+            //      4- compare the hashed password stored in db to the entered password after hashing and adding salt
+            var hashedPassword = GetHashedPassword(password, dbUser.Salt);
+            if(hashedPassword == dbUser.HashedPassword)
+            {
+                //password is good
+                var userLoginResponseModel = new UserLoginResponseModel
+                {
+                    Id = dbUser.Id,
+                    Email = dbUser.Email,
+                    FirstName = dbUser.FirstName,
+                    LastName = dbUser.LastName
+                };
+                return userLoginResponseModel;
+            }
+            return null;
         }
 
         public async Task<bool> RegisterUser(UserRegisterModel model)
