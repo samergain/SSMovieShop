@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
+using ApplicationCore.Entities;
 
 namespace Infrastructure.Services
 {
@@ -35,10 +36,28 @@ namespace Infrastructure.Services
                 throw new ConflictException("Email already exists!");
             }
             //step 2: create a random salt -> create hashed password with your salt added (hashing algorithms: pdbkf2, Bcrypt, Aargon2)
-
+            //add package: Microsoft.AspNetCore.Cryptography.KeyDerivation and use System.Security.Cryptography
+            var salt = GetRandomSalt();
+            var hashedPassword = GetHashedPassword(model.Password, salt);
             //step 3: save the user object to User table
+            var user = new User
+            {
+                Email = model.Email,
+                Salt = salt,
+                HashedPassword = hashedPassword,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                DateOfBirth = model.DateOfBirth
+            };
 
+            var createdUser = await _userRepositroy.Add(user);
+            if (createdUser.Id > 0)
+            {
+                return true;
+            }
+            return false;
         }
+
 
         private string GetRandomSalt()
         {
