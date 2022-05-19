@@ -21,7 +21,7 @@ namespace Infrastructure.Services
         {
             _userRepositroy = userRepositroy;
         }
-
+        
         public async Task<UserLoginResponseModel> LoginUser(string email, string password)
         {
             var dbUser = await _userRepositroy.GetUserByEmail(email);

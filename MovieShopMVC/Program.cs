@@ -3,6 +3,7 @@ using ApplicationCore.Contracts.Services;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
 using Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -30,6 +31,15 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
     //builder.Configuration used to read the configuration information from appsettings.json
     //GetConnectionString("Key") used to read the connection string in settings with the (Key) 
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+   {
+       options.Cookie.Name = "MovieShopAuthCookie";
+       options.ExpireTimeSpan = TimeSpan.FromHours(2);
+       options.LoginPath = "/account/login"; //the path used to redirect user after cookie expiration
+   });
+
 
 var app = builder.Build();
 
