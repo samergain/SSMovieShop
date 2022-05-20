@@ -35,6 +35,10 @@ namespace MovieShopMVC.Controllers
             // encryption is two way encrypt and decrypt  vs.  hashing is one-way (we can't get the original value)
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
                 var user = await _accountService.RegisterUser(model);
             } 
             catch (ConflictException)
@@ -92,7 +96,7 @@ namespace MovieShopMVC.Controllers
             }
             return View();
         }
-
+        
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
