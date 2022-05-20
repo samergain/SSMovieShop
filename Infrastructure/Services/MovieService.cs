@@ -26,6 +26,7 @@ namespace Infrastructure.Services
 
             var movies = await _movieRepository.GetTop30GrossingMovies();
             var movieCards = new List<MovieCardModel>();
+            
             foreach(var movie in movies)
             {
                 movieCards.Add(new MovieCardModel
