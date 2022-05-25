@@ -9,11 +9,9 @@
 
 <div class="container-fluid">
     <div class="row bg-image" style="background-image: url(@Model.BackdropUrl);">
-        <div class="row bg-image" style="background-color: rgba(0, 0, 0, 0.7);">
+        <div class="row bg-image m-0" style="background-color: rgba(0, 0, 0, 0.7);">
         <div class="col-5 border-0">
-            <div class="card border-0" style="width: 80%; background-color: rgba(0, 0, 0, 0);">
-            <partial name="_MovieCardPartial" model="movieCard" />
-            </div>
+            <img src="@Model.PosterUrl" />
         </div>
 
         <div class="col-5" style="background-color: rgba(0, 0, 0, 0);">
@@ -66,14 +64,14 @@
     </div>
     </div>
     <div class="row">
-        <div class="col-4">
-            <ul class="list-group list-group-flush" style="background-color: lightgray;">
+        <div class="col-4 m-0 p-0">
+            <ul class="list-group list-group-flush" style="background-color: lightgray; height: 100%">
               <li class="list-group-item" style="background-color: lightgray;"><h2>Movie Facts</h2></li>
               <li class="list-group-item" style="background-color: lightgray;">Release Date <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.ReleaseDate.Value.Year</button></span></li>
               <li class="list-group-item" style="background-color: lightgray;">Run Time  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.RunTime</button></span></li>
               <li class="list-group-item" style="background-color: lightgray;">Box Office  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Revenue</button></span></li>
               <li class="list-group-item" style="background-color: lightgray;">Budget  <span><button type="button" class="btn btn-secondary btn-sm" style="border-radius: 30px;">@Model.Budget</button></span></li>
-              <li class="list-group-item" style="background-color: lightgray;"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>
+             @* <li class="list-group-item" style="background-color: lightgray;"><a href="@Model.ImdbUrl"><span class="glyphicon glyphicon-share"></span></a></li>*@
               <li class="list-group-item" style="background-color: lightgray;"><h2>Trailers:</h2>
                 <ul class="list-group">
                 @foreach(var t in Model.Trailers)
