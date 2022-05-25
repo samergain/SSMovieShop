@@ -18,12 +18,22 @@ namespace Infrastructure.Services
             _userRepository = userRepository;
         }
 
+        public Task<List<MovieCardModel>> GetAllFavoritesForUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<List<MovieCardModel>> GetAllPurchasesForUser(int id)
         {
             var user = await _userRepository.GetById(id);
             var purchases = new List<MovieCardModel>();
             //get user.purchases and add them to purchases
             return purchases;
+        }
+
+        public Task<PurchaseDetailsModel> GetPurchaseDetails(int userId, int movieId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
