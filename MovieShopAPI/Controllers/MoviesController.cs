@@ -37,6 +37,7 @@ namespace MovieShopAPI.Controllers
             return Ok(movies);
         }
 
+        // api/movies/details/id
         [Route("{id}")]
         [HttpGet]
         public async Task<IActionResult> Details(int id)

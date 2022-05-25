@@ -25,6 +25,10 @@ namespace Infrastructure.Services
             //var movieRepo = new MovieRepository();
 
             var movies = await _movieRepository.GetTop30GrossingMovies();
+            if(movies == null)
+            {
+                return null;
+            }
             var movieCards = new List<MovieCardModel>();
             
             foreach(var movie in movies)
@@ -43,7 +47,10 @@ namespace Infrastructure.Services
         public async Task<MovieDetailsModel> GetMovieDetails(int id)
         {
             var movie = await _movieRepository.GetById(id);
-
+            if(movie == null)
+            {
+                return null;
+            }
             var movieDetails = new MovieDetailsModel {
                 Id = movie.Id,
                 Title = movie.Title,
@@ -95,6 +102,10 @@ namespace Infrastructure.Services
         public async Task<PagedResultSet<MovieCardModel>> GetMoviesByGenrePagination(int genreId, int pageSize = 30, int pageNumber = 1)
         {
             var pagedMovies = await _movieRepository.GetMoviesByGenres(genreId, pageSize, pageNumber);
+            if(pagedMovies == null)
+            {
+                return null;
+            }
             var movieCards = new List<MovieCardModel>();
             movieCards.AddRange(pagedMovies.Data.Select(m => new MovieCardModel
             {
@@ -105,5 +116,7 @@ namespace Infrastructure.Services
 
             return new PagedResultSet<MovieCardModel>(movieCards, pageNumber, pageSize, pagedMovies.Count);
         }
+
+
     }
 }
