@@ -18,9 +18,14 @@
             <div class="card border-0" style="background-color: rgba(0, 0, 0, 0);">
               <div class="card-body">
                 <h5 class="card-title" style="color: white;">@Model.Title</h5>
-                <p class=" fs-6 mb-2 text-muted">@Model.Tagline @Model.Price</p>
-                <p class="card-subtitle fs-6 mb-2 text-muted">@Model.RunTime | @Model.ReleaseDate.Value.Year</p>
-                <h4><span class="badge bg-success">9.0</span></h4>
+                <p class=" fs-6 mb-2 text-muted">@Model.Tagline</p>
+                @foreach (var genre in @Model.Genres)
+                {
+                    <p style="display: inline-block; padding: 4px; border-radius: 10px; background-color:gray; color: white;">@genre.Name</p>
+
+                }
+                <p class="card-subtitle fs-6 mb-2 text-muted">@Model.RunTime min | @Model.ReleaseDate.Value.Year</p>
+                <h4><span class="badge bg-success">9.2</span></h4>
                 <p class="card-text" style="color: white;">@Model.Overview</p>
               </div>
             </div>
@@ -28,7 +33,7 @@
         <div class="col-2">
             <div class="d-grid gap-2 mt-5">
               
-              <button class="btn btn-dark" type="button">Buy @Model.Price</button>
+              <button class="btn btn-dark" type="button">Buy $@(Model.Price != null ? Model.Price : 9.99)</button>
               
                     <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Review</button>
 
@@ -76,7 +81,7 @@
                 <ul class="list-group">
                 @foreach(var t in Model.Trailers)
                         {
-                            <li class="list-group-item" style="background-color: lightgray;"><a href="@t.TrailerUrl" target="_blank">@t.Name</a></li>
+                            <li class="list-group-item" style="background-color: lightgray;"><a href="@t.TrailerUrl" target="_blank" style="text-decoration: none;">@t.Name</a></li>
                         }
                 
                 </ul>

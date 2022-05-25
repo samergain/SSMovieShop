@@ -29,10 +29,10 @@ namespace ApplicationCore.Entities
         public bool? IsLocked { get; set; }
         public int? AccessFailedCount { get; set; }
 
-        ICollection<UserRole> UserRoles { get; set; }
-        ICollection<Review> UserReviews { get; set; }
-        ICollection<Favorite> UserFavorites { get; set; }
-        ICollection<Purchase> UserPurchases { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Review> UserReviews { get; set; }
+        public ICollection<Favorite> UserFavorites { get; set; }
+        public ICollection<Purchase> UserPurchases { get; set; }
 
     }
 }

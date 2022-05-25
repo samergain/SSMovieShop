@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ApplicationCore.Contracts.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -7,6 +8,13 @@ namespace MovieShopMVC.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet]
         
         public async Task<IActionResult> Purchases()
@@ -30,6 +38,7 @@ namespace MovieShopMVC.Controllers
             //var userId = this.HttpContext.User.Claims.FirstOrDefault(x => x.ValueType == ClaimType.Identifiers)?.Value;
             var userId = Convert.ToInt32(this.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             //call userService -> getPurchasedMovies -> list<moviecards>
+             
             return View();
         }
 
