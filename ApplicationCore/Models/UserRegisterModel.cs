@@ -25,7 +25,7 @@ namespace ApplicationCore.Models
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        [YearValidationAttribute(1900)]
+       // [YearValidationAttribute(1900)]
         public DateTime DateOfBirth { get; set; }
     }
 }

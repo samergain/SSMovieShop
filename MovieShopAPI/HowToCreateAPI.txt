@@ -1,0 +1,7 @@
+﻿1. Create a new Project of type ASP.NET Core Web API
+2. Create a new controller (choose "API Controller" from templates)
+3. Add project reference to Core and Infrastructure to be able to call Services and Repositories from Core and Infrastructure layers
+4. Copy the injected dependencies from MVC/program.cs and the connection string from appsettings.
+   Also, Copy dbContext DI from program.cs and install (EntityFrameWorkCore.SqlServer) package.
+5. Create the methods that will return the required data(in JSON format) and the Http request status code ( Use Attribute Routing )
+6. Before running -- set the API project as the "startup project" (right click option)

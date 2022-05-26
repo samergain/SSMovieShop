@@ -12,6 +12,6 @@ namespace ApplicationCore.Entities
         public string Name { get; set; }
 
         //Navigation property
-        ICollection<MovieGenre> GenresOfMovies { get; set; }
+        public ICollection<MovieGenre> GenresOfMovies { get; set; }
     }
 }
