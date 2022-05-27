@@ -1,6 +1,7 @@
 ﻿using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,10 @@ namespace Infrastructure.Repositories
         public GenreRepository(MovieShopDbContext dbContext): base(dbContext)
         {
         }
-       
+        public async Task<List<Genre>> GetAllGenres()
+        {
+            var genres = await _dbContext.Genres.ToListAsync();
+            return genres;
+        }
     }
 }
