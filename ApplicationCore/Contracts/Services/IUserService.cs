@@ -12,8 +12,9 @@ namespace ApplicationCore.Contracts.Services
         //---------------------------Purchase-----------------------------------//
         //Task PurchaseMovie(PurchaseRequestModel purchaseRequest, int userId);
         //Task IsMoviePurchased(PurchaseRequestModel purchaseRequest, int userId);
+        //Task<PurchaseDetailsModel> GetPurchaseDetails(int userId, int movieId);
         Task<List<MovieCardModel>> GetAllPurchasesForUser(int id);
-        Task<PurchaseDetailsModel> GetPurchaseDetails(int userId, int movieId);
+       
 
         //---------------------------Favorite--------------------------------------//
         //Task AddFavorite(FavoriteRequestModel favoriteRequest);
@@ -25,7 +26,7 @@ namespace ApplicationCore.Contracts.Services
         //Task AddMovieReview(ReviewRequestModel reviewRequest);
         //Task UpdateMovieReview(ReviewRequestModel reviewRequest);
         //Task DeleteMovieReview(int userId, int movieId);
-        //Task GetAllReviewsByUser(int id);
+        Task<List<ReviewDetailsModel>> GetAllReviewsByUser(int id);
         //--------------------------------------------------------------------------//
 
 

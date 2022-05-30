@@ -18,22 +18,54 @@ namespace Infrastructure.Services
             _userRepository = userRepository;
         }
 
-        public Task<List<MovieCardModel>> GetAllFavoritesForUser(int id)
+        public async Task<List<MovieCardModel>> GetAllFavoritesForUser(int id)
         {
-            throw new NotImplementedException();
+            var favoriteMovies = await _userRepository.GetAllFavoritesForUser(id);
+            var moviesModels = new List<MovieCardModel>();
+            foreach (var movie in favoriteMovies)
+            {
+                moviesModels.Add(new MovieCardModel
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    PosterUrl = movie.PosterUrl
+                });
+            }
+            return moviesModels;
         }
 
         public async Task<List<MovieCardModel>> GetAllPurchasesForUser(int id)
         {
-            var user = await _userRepository.GetById(id);
-            var purchases = new List<MovieCardModel>();
-            //get user.purchases and add them to purchases
-            return purchases;
+            var purchasedMovies = await _userRepository.GetPurchasesByUserId(id);
+            var moviesModels = new List<MovieCardModel>();
+            foreach(var movie in purchasedMovies)
+            {
+                moviesModels.Add(new MovieCardModel
+                {
+                    Id=movie.Id,
+                    Title =movie.Title,
+                    PosterUrl =movie.PosterUrl
+                });
+            }
+            return moviesModels;
         }
 
-        public Task<PurchaseDetailsModel> GetPurchaseDetails(int userId, int movieId)
+        public async Task<List<ReviewDetailsModel>> GetAllReviewsByUser(int id)
         {
-            throw new NotImplementedException();
+            var reviews = await _userRepository.GetAllReviewsByUser(id);
+            var reviewsModels = new List<ReviewDetailsModel>();
+            foreach(var review in reviews)
+            {
+                reviewsModels.Add(new ReviewDetailsModel
+                {
+                    UserId = review.UserId,
+                    MovieId = review.MovieId,
+                    ReviewText = review.ReviewText,
+                    Rating = review.Rating
+                });
+            }
+
+            return reviewsModels;
         }
     }
 }

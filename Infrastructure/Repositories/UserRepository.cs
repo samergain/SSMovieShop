@@ -30,14 +30,37 @@ namespace Infrastructure.Repositories
             return user as User;
         }
 
-        public Task<List<Movie>> GetAllFavoritesForUser(int id)
+        public async Task<List<Movie>> GetAllFavoritesForUser(int id)
         {
-            throw new NotImplementedException();
+            var movies = await _dbContext.Favorite.Where(f => f.UserId == id).Include(m => m.Movie).OrderBy(m => m.Id)
+                .Select( m => new Movie
+                {
+                    Id = m.MovieId,
+                    PosterUrl = m.Movie.PosterUrl,
+                    Title = m.Movie.Title
+                })
+                .ToListAsync();
+            return movies;
+               
         }
 
-        public Task<List<Review>> GetAllReviewsByUser(int id)
+        public async Task<List<Review>> GetAllReviewsByUser(int id)
         {
-            throw new NotImplementedException();
+            var reviews = await _dbContext.Review.Where(r => r.UserId == id).ToListAsync();
+            return reviews;
+        }
+
+        public async Task<List<Movie>> GetPurchasesByUserId(int id)
+        {
+            var movies = await _dbContext.Purchase.Where(f => f.UserId == id).Include(m => m.Movie).OrderBy(m => m.Id)
+                .Select(m => new Movie
+                {
+                    Id = m.MovieId,
+                    PosterUrl = m.Movie.PosterUrl,
+                    Title = m.Movie.Title
+                })
+                .ToListAsync();
+            return movies;
         }
     }
 }
