@@ -9,7 +9,12 @@ namespace ApplicationCore.Contracts.Repositories
 {
     public interface IPurchaseRepository : IRepository<Purchase>
     {
-        Task<List<Purchase>> GetPurchaseByUserId(int userId);
+        Task<List<Movie>> GetPurchaseByUserId(int userId);
         Task<Purchase> GetPurchaseDetails(int userId, int movieId);
+
+        Task<Purchase> PurchaseMovie (Purchase Entity);
+        Task<bool> IsMoviePurchased(int movieId, int userId);
+        
+        
     }
 }

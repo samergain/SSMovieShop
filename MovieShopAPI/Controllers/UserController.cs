@@ -11,6 +11,8 @@ namespace MovieShopAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
+        //favorites //reviews //purchases
         public UserController(IUserRepository userRepository)
         {
             _userRepository = userRepository;

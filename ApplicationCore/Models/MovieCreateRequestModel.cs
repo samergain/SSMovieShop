@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Models
 {
-    public class PurchaseDetailsModel
+    public class MovieCreateRequestModel
     {
-        
     }
 }

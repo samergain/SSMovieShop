@@ -30,5 +30,14 @@ namespace Infrastructure.Repositories
             return user as User;
         }
 
+        public Task<List<Movie>> GetAllFavoritesForUser(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Review>> GetAllReviewsByUser(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationCore.Models
+namespace Infrastructure.Services
 {
-    public class PurchaseDetailsModel
+    public class FavoriteService
     {
-        
     }
 }
