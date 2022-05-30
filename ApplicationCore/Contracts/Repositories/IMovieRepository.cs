@@ -20,5 +20,8 @@ namespace ApplicationCore.Contracts.Repositories
 
         
         Task<PagedResultSet<Movie>> GetMoviesByGenres(int genreId, int pageSize = 30, int pageNumber = 1);
+        Task<List<Movie>> GetTop30RatedMovies();
+        Task<PagedResultSet<Movie>> GetAllMovies(int pageSize = 30, int pageNumber = 1);
+        Task<PagedResultSet<Review>> GetTop30Reviews(int movieId, int pageSize = 30, int pageNumber = 1);
     }
 }

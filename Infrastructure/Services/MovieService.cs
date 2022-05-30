@@ -81,8 +81,7 @@ namespace Infrastructure.Services
                 {
                     Id = cast.CastId,
                     Name = cast.Cast.Name,
-                    ProfilePath = cast.Cast.ProfilePath,
-                    Character = cast.Cast.TmdbUrl
+                    ProfilePath = cast.Cast.ProfilePath
 
                 });
             }
@@ -117,6 +116,61 @@ namespace Infrastructure.Services
             return new PagedResultSet<MovieCardModel>(movieCards, pageNumber, pageSize, pagedMovies.Count);
         }
 
+        public async Task<PagedResultSet<ReviewDetailsModel>> GetTop30Reviews(int movieId, int pageSize = 30, int pageNumber = 1)
+        {
+            var top30Reviews = await _movieRepository.GetTop30Reviews(movieId, pageSize, pageNumber); 
+            if(top30Reviews == null)
+            {
+                return null;
+            }
+            var reviews = new List<ReviewDetailsModel>();
+            foreach(var review in top30Reviews.Data)
+            {
+                
+                reviews.Add(new ReviewDetailsModel
+                {
+                    MovieId = review.MovieId,
+                    UserId = review.UserId,
+                    Rating = review.Rating,
+                    ReviewText = review.ReviewText
+                });
+            }
+            return new PagedResultSet<ReviewDetailsModel>(reviews, pageNumber, pageSize, reviews.Count);
+        }
 
+        public async Task<PagedResultSet<MovieCardModel>> GetAllMovies(int pageSize = 30, int pageNumber = 1)
+        {
+            var movies = await _movieRepository.GetAllMovies(pageSize, pageNumber);
+            if(movies == null)
+            {
+                return null;
+            }
+
+            var moviesCards = new List<MovieCardModel>();
+            moviesCards.AddRange(movies.Data.Select(m => new MovieCardModel
+            {
+                Id = m.Id,
+                PosterUrl = m.PosterUrl,
+                Title = m.Title
+            }));
+            return new PagedResultSet<MovieCardModel>(moviesCards, pageNumber, pageSize, movies.Count);
+        }
+
+        public async Task<List<MovieCardModel>> GetTopRatedMovies()
+        {
+            var topRatedMovies = await _movieRepository.GetTop30RatedMovies();
+            var topRatedMoviesCards = new List<MovieCardModel>();
+            foreach (var movie in topRatedMovies)
+            {
+                topRatedMoviesCards.Add(new MovieCardModel
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    PosterUrl = movie.PosterUrl
+                });
+            }
+            return topRatedMoviesCards;
+
+        }
     }
 }

@@ -21,5 +21,11 @@ namespace Infrastructure.Repositories
             var cast = await _dbContext.Cast.Include(c => c.CastMovies).ThenInclude(c => c.Movie).FirstOrDefaultAsync(c => c.Id == id);
             return cast;
         }
+
+        public async Task<List<Cast>> GetAllCasts()
+        {
+            var casts = await _dbContext.Cast.ToListAsync();
+            return casts;
+        }
     }
 }

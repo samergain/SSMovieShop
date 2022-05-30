@@ -40,7 +40,17 @@ namespace Infrastructure.Repositories
 
             return movie;
         }
-
+        public async Task<PagedResultSet<Movie>> GetAllMovies(int pageSize = 30, int pageNumber = 1)
+        {
+            var moviesCount = await _dbContext.Movies.CountAsync();
+            if(moviesCount == 0)
+            {
+                throw new Exception("No Movies Found");
+            }
+            var movies = await _dbContext.Movies.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var pagedMovies = new PagedResultSet<Movie>(movies, pageNumber, pageSize, moviesCount);
+            return pagedMovies;
+        }
         public async Task<PagedResultSet<Movie>> GetMoviesByGenres(int genreId, int pageSize = 30, int pageNumber = 1)
         {
             // get total movies count for that genre
@@ -65,6 +75,53 @@ namespace Infrastructure.Repositories
 
             var pagedMovies = new PagedResultSet<Movie>(movies, pageNumber, pageSize, totalMoviesCountByGenre);
             return pagedMovies;
+        }
+
+        public async Task<List<Movie>> GetTop30RatedMovies()
+        {
+            //var topRated = await _dbContext.Review.Include(r => r.Movie).GroupBy(r => r.MovieId)
+            //    .OrderByDescending(r => r.Average(r => r.Rating))
+            //    .Select(r => new Movie
+            //                {
+            //                    Id = r.Select(r => r.MovieId),
+            //                    Title = r.Select(r =>r.Movie.Title),
+            //                    PosterUrl = r.Select(r=>r.Movie.PosterUrl)
+            //                }).ToListAsync();
+            //return topRated;
+
+            var movies = (from r in _dbContext.Review.Include(r => r.Movie)
+
+                         group r by r.MovieId into mr
+
+                         orderby mr.Average(r => r.Rating) descending
+                         select new Movie
+                         {
+                             Id = mr.FirstOrDefault().Movie.Id,
+                             Title = mr.FirstOrDefault().Movie.Title,
+                             PosterUrl = mr.FirstOrDefault().Movie.PosterUrl
+                         }).Take(30);
+            var res = new List<Movie>();
+
+             foreach (var m in movies)
+            {
+                res.Add(new Movie { Id = m.Id, Title = m.Title, PosterUrl = m.PosterUrl });
+            }
+            return res;
+           
+
+        }
+
+        public async Task<PagedResultSet<Review>> GetTop30Reviews(int movieId, int pageSize = 30, int pageNumber = 1)
+        {
+            var totalMovieReviewsCount = await _dbContext.Review.Where(r => r.MovieId == movieId).CountAsync();
+            if(totalMovieReviewsCount == 0)
+            {
+                throw new Exception("No reviews found");
+            }
+            var reviews = await _dbContext.Review.Include(r => r.Movie).Where(r => r.MovieId == movieId)
+                .Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            var pagedReviews = new PagedResultSet<Review>(reviews, pageNumber, pageSize, totalMovieReviewsCount);
+            return pagedReviews;
         }
     }
 }

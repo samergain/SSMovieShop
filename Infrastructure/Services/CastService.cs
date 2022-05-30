@@ -42,5 +42,26 @@ namespace Infrastructure.Services
 
             return castDetails;
         }
+
+        public async Task<List<CastModel>> GetAllCasts()
+        {
+            var casts = await _castRepository.GetAllCasts();
+            var castsModels = new List<CastModel>();
+            foreach (var cast in casts)
+            {
+                castsModels.Add(new CastModel
+                {
+                    Name = cast.Name,
+                    Id = cast.Id,
+                    ProfilePath = cast.ProfilePath
+
+                });
+            }
+            return castsModels;
+
+        }
+
+       
     }
+
 }

@@ -10,5 +10,6 @@ namespace ApplicationCore.Contracts.Services
     public interface ICastService
     {
         Task<CastDetailsModel> GetCastDetails(int id);
+        Task<List<CastModel>> GetAllCasts();
     }
 }

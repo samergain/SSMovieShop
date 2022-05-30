@@ -16,6 +16,17 @@ namespace MovieShopAPI.Controllers
             _movieService = movieService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var movies = await _movieService.GetAllMovies(30, 1);
+            if (movies.Count == 0)
+            {
+                return NotFound("No movies found");
+            }
+            return Ok(movies);
+        }
+        
         //  api/movies/top-grossing
         [Route("top-grossing")]
         [HttpGet]
@@ -49,5 +60,40 @@ namespace MovieShopAPI.Controllers
             }
             return Ok(movie);
         }
+
+        [Route("{id}/review")]
+        [HttpGet]
+        public async Task<IActionResult> Top30Reviews(int id)
+        {
+            var reviews = await _movieService.GetTop30Reviews(id);
+            return Ok(reviews);
+        }
+
+        [Route("top-rated")]
+        [HttpGet]
+        public async Task<IActionResult> Top30Rated()
+        {
+            var movies = await _movieService.GetTopRatedMovies();
+            if(movies.Count() == 0)
+            {
+                return NotFound();
+            }
+            return Ok(movies);
+        }
+        
+        [Route("genre/{genreId}")]
+        [HttpGet]
+        public async Task<IActionResult> MoviesByGenre(int genreId)
+        {
+            var movies = await _movieService.GetMoviesByGenrePagination(genreId);
+            if(movies == null)
+            {
+                return NotFound();
+            }
+            return Ok(movies);
+        }
+
+        
+
     }
 }
