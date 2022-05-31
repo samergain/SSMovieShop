@@ -15,13 +15,15 @@ namespace MovieShopAPI.Controllers
         private readonly IUserRepository _userRepository;
         private readonly IUserService _userService;
         private readonly IPurchaseService _purchaseService;
+        private readonly IFavoriteService _favoriteService;
        
         //favorites //reviews //purchases
-        public UserController(IUserRepository userRepository, IUserService userService, IPurchaseService purchaseService)
+        public UserController(IUserRepository userRepository, IUserService userService, IPurchaseService purchaseService, IFavoriteService favoriteService)
         {
             _userRepository = userRepository;
             _userService = userService;
             _purchaseService = purchaseService;
+            _favoriteService = favoriteService;
         }
 
         [HttpGet]
@@ -49,6 +51,41 @@ namespace MovieShopAPI.Controllers
             return Ok(favorites);
         }
 
+        [Route("favorite")]
+        [HttpPost]
+        public async Task<IActionResult> PostUserNewFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            var fav = await _favoriteService.AddFavorite(favoriteRequest);
+            if (fav)
+            {
+                return Ok(fav);
+            }
+            return BadRequest();
+        }
+
+        [Route("un-favorite")]
+        [HttpDelete]
+        public async Task<IActionResult> PostUserRemoveFavorite(FavoriteRequestModel favoriteRequest)
+        {
+            var fav = await _favoriteService.RemoveFavorite(favoriteRequest);
+            if (fav)
+            {
+                return Ok(fav);
+            }
+            return BadRequest();
+        }
+
+        [Route("check-movie-favorite/{movieId}")]
+        [HttpGet]
+        public async Task<IActionResult> GetIsMovieFavorite(int userId, int movieId)
+        {
+            var result = await _favoriteService.FavoriteExists(userId, movieId);
+            if(result == false)
+            {
+                return NotFound("Not found in Favorites");
+            }
+            return Ok(result);
+        }
 
         [Route("purchases")]
         [HttpGet]
