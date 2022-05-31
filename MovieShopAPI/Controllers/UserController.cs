@@ -16,14 +16,16 @@ namespace MovieShopAPI.Controllers
         private readonly IUserService _userService;
         private readonly IPurchaseService _purchaseService;
         private readonly IFavoriteService _favoriteService;
+        private readonly IReviewService _reviewService;
        
         //favorites //reviews //purchases
-        public UserController(IUserRepository userRepository, IUserService userService, IPurchaseService purchaseService, IFavoriteService favoriteService)
+        public UserController(IUserRepository userRepository, IUserService userService, IPurchaseService purchaseService, IFavoriteService favoriteService, IReviewService reviewService)
         {
             _userRepository = userRepository;
             _userService = userService;
             _purchaseService = purchaseService;
             _favoriteService = favoriteService;
+            _reviewService = reviewService;
         }
 
         [HttpGet]
@@ -148,6 +150,42 @@ namespace MovieShopAPI.Controllers
 
             }
             return Ok(reviews);
+        }
+
+        [Route("add-review")]
+        [HttpPost]
+        public async Task<IActionResult> PostMovieReview(ReviewRequestModel model)
+        {
+            var review = await _reviewService.AddMovieReview(model);
+            if (review)
+            {
+                return Ok(review);
+            }
+            return BadRequest();
+        }
+
+        [Route("remove-review/{movieId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteMovieReview(int userId, int movieId)
+        {
+            var review = await _reviewService.DeleteMovieReview(userId,movieId);
+            if (review)
+            {
+                return Ok(review);
+            }
+            return BadRequest();
+        }
+
+        [Route("edit-review")]
+        [HttpPut]
+        public async Task<IActionResult> PutMovieReview(ReviewRequestModel model)
+        {
+            var review = await _reviewService.UpdateMovieReview(model);
+            if (review)
+            {
+                return Ok(review);
+            }
+            return BadRequest();
         }
     }
 }
